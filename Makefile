@@ -1,4 +1,4 @@
-.PHONY: all compile
+.PHONY: all compile clean
 
 all: compile
 
@@ -7,3 +7,6 @@ compile:
 
 console:
 	erl -pa ./ebin
+
+clean:
+	rebar clean

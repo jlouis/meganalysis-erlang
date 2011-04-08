@@ -41,7 +41,10 @@ mk_company() ->
                                        manager = #employee { name = "Karl",
                                                              address = "Riga",
                                                              salary = 2345 },
-                                       employees = [],
+                                       employees =
+                                           [#employee { name = "Joe",
+                                                        address = "Wifi City",
+                                                        salary = 2344 }],
                                        subdepts = [] }]},
     #company {
             name = "meganalysis",
