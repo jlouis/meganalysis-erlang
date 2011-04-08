@@ -11,7 +11,9 @@
 
 
 start(_StartType, _StartArgs) ->
-    meganalysis_sup:start_link().
+    {ok, Pid} = meganalysis_sup:start_link(),
+    meganalysis_log_info:add_handler(),
+    {ok, Pid}.
 
 stop(_State) ->
     ok.

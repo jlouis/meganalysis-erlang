@@ -95,6 +95,7 @@ init([]) ->
 %% @private
 handle_call(total, _From, #state { company = Company } = State) ->
     Total = totalCompany(Company),
+    meganalysis_event:notify("Totals have been requested by Management!"),
     {reply, {ok, Total}, State};
 handle_call(_Request, _From, State) ->
     Reply = ok,
@@ -103,6 +104,7 @@ handle_call(_Request, _From, State) ->
 %% @private
 handle_cast(cut, #state { company = Company } = State) ->
     CutCompany = cutCompany(Company),
+    meganalysis_event:notify("Employees have been cut!"),
     {noreply, State#state { company = CutCompany }};
 handle_cast(_Msg, State) ->
     {noreply, State}.

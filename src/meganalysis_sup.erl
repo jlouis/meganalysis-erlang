@@ -24,6 +24,8 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
+    Event = ?CHILD(meganalysis_event, worker),
     Processor = ?CHILD(meganalysis_process, worker),
-    {ok, { {one_for_one, 5, 10}, [Processor]} }.
+
+    {ok, { {one_for_one, 5, 10}, [Event, Processor]} }.
 

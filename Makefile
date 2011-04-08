@@ -6,7 +6,7 @@ compile:
 	rebar compile
 
 console:
-	erl -pa ./ebin
+	erl -boot start_sasl -pa ./ebin
 
 clean:
 	rebar clean
