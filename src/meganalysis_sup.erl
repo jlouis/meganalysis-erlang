@@ -25,5 +25,7 @@ start_link() ->
 
 init([]) ->
     Processor = ?CHILD(meganalysis_process, worker),
-    {ok, { {one_for_one, 5, 10}, [Processor]} }.
+
+    DB = ?CHILD(meganalysis_serializer, worker),
+    {ok, { {one_for_one, 5, 10}, [DB, Processor]} }.
 

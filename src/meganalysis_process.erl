@@ -89,8 +89,13 @@ start_link() ->
 
 %% @private
 init([]) ->
-    Company = mk_company(),
-    {ok, #state{ company = Company }}.
+    case meganalysis_serializer:request() of
+        {yes, Company} ->
+            {ok, #state { company = Company }};
+        {no, _Reason} ->
+            Company = mk_company(),
+            {ok, #state{ company = Company }}
+    end.
 
 %% @private
 handle_call(total, _From, #state { company = Company } = State) ->
@@ -103,6 +108,7 @@ handle_call(_Request, _From, State) ->
 %% @private
 handle_cast(cut, #state { company = Company } = State) ->
     CutCompany = cutCompany(Company),
+    meganalysis_serializer:commit(CutCompany),
     {noreply, State#state { company = CutCompany }};
 handle_cast(_Msg, State) ->
     {noreply, State}.
